@@ -1,11 +1,12 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useContext } from "react";
+import { Link } from "expo-router";
+import { useCallback, useContext } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CartContext, Item } from "./context/CartContext";
 export const products : Item[]= [
- { id: '1', nome: 'Notebook', preco: 3000 },
- { id: '2', nome: 'Mouse', preco: 100 },
- { id: '3', nome: 'Teclado', preco: 200 },
+ { id: '1', name: 'Notebook', preco: 3000 },
+ { id: '2', name: 'Mouse', preco: 100 },
+ { id: '3', name: 'Teclado', preco: 200 },
 ];
 
 export default function Index() {
@@ -14,22 +15,32 @@ export default function Index() {
     throw new Error("Use context needs a provider")
   }
   const {addToCart}=contexto
+
+  const lookProductDetails=useCallback(()=>{
+    
+  },[])
+
   return (
+    <View>
       <FlatList 
         data={products}
         keyExtractor={(item)=>item.id}
         renderItem={({item})=>
         <View style={styles.container}>
-          <Text style={styles.textStyle}>{`${item.nome} - ${item.preco}R$`}</Text>
+          <Text style={styles.textStyle}>{`${item.name} - ${item.preco}R$`}</Text>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.eyeButton} >
+            <Link href={`../produto/${item.id}`} style={styles.eyeLink} >
               <FontAwesome5 size={25} name="eye"/> 
-            </TouchableOpacity>
+            </Link>
             <TouchableOpacity style={styles.addButton} onPress={()=>addToCart(item)}>
               <FontAwesome5 size={25} name="plus"/> 
             </TouchableOpacity>
           </View>    
         </View> }/>
+        <View style={styles.viewTotal}>
+
+        </View>
+      </View>    
   );
 }
 
@@ -53,7 +64,7 @@ const styles=StyleSheet.create({
   addButton:{
     marginRight: 10
   },
-   eyeButton: {
+   eyeLink: {
     marginRight: 15
   },
   buttonsContainer: {
@@ -61,5 +72,8 @@ const styles=StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
+  },
+  viewTotal:{
+
   }
 });

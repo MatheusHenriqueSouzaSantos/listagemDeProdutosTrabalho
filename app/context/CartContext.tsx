@@ -2,7 +2,7 @@ import { createContext, useCallback, useMemo, useState } from "react";
 
 export type Item={
     id: string,
-    nome: string,
+    name: string,
     preco:number
 }
 
