@@ -1,11 +1,9 @@
 import { useContext } from "react";
-import { FlatList, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { CartContext } from "./context/CartContext";
 
 
 export default function Cart(){
-    const {width}=useWindowDimensions();
-    const isMobile=width<768;
     const cartContext=useContext(CartContext);
     const itens=cartContext?.itens;
     const total=cartContext?.cartTotal;
@@ -25,8 +23,8 @@ export default function Cart(){
                 <Text style={styles.textStyle} >Carrinho Vazio</Text>    
             </View>}
             <View style={[styles.totalView,{
-                left: isMobile ? "45%" : "82%",
-                top: isMobile ? 720 : 800
+                left: "45%" ,
+                top:  420 
             }]}>
                 <Text style={styles.textStyle}>{`Total: ${total} R$`}</Text>
             </View>

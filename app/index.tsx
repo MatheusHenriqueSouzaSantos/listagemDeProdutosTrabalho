@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useCallback, useContext, useRef } from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CartContext, Item } from "./context/CartContext";
 
 export const products : Item[]= [
@@ -11,8 +11,6 @@ export const products : Item[]= [
 ];
 
 export default function Index() {
-  const {width}=useWindowDimensions();
-  const isMobile=width<768;
   const contexto = useContext(CartContext);
   if(contexto==null){
     throw new Error("Use context needs a provider")
@@ -46,14 +44,14 @@ export default function Index() {
           </View>    
         </View> }/>
         <View style={[styles.viewRenderizationCount,{
-            left: isMobile ? "20%" : "73%",
-            top: isMobile ? 735 : 815,
+            left: "20%" ,
+            top:  435 ,
         }]}>
           <Text style={styles.textRenderizationCount}>{`Render Count: ${renderCount.current}`}</Text>
         </View>
         <Link href={"./Cart"} style={[styles.linkShoppingCart,{
-          left: isMobile ? "80%" : "93%",
-          top: isMobile ? 720 : 800,
+          left:"80%" ,
+          top:  420 ,
         }]}>
           <FontAwesome5 size={30} name="shopping-cart"/>
         </Link>
