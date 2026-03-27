@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useCallback, useContext, useRef } from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { FlatList, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { CartContext, Item } from "./context/CartContext";
 
 export const products : Item[]= [
@@ -40,9 +40,6 @@ export default function Index() {
             <Link href={`../produto/${item.id}`} style={styles.eyeLink} >
               <FontAwesome5 size={25} name="eye"/> 
             </Link>
-            <TouchableOpacity style={styles.addButton} onPress={()=>addToCart(item)}>
-              <FontAwesome5 size={25} name="plus"/> 
-            </TouchableOpacity>
           </View>    
         </View> }/>
         <View style={[styles.viewRenderizationCount,{
@@ -77,9 +74,6 @@ const styles=StyleSheet.create({
   textStyle: {
     fontSize: 27,
     marginLeft: 10
-  },
-  addButton:{
-    marginRight: 10
   },
    eyeLink: {
     marginRight: 15

@@ -1,14 +1,31 @@
-import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useContext } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { CartContext } from "../context/CartContext";
 import { products } from "../index";
 
 export default function DetalheProduto(){
+    const context=useContext(CartContext)
+    const router=useRouter()
+    if(context==null){
+    throw new Error("Use context needs a provider")
+    }
+    const {addToCart} =context
     const {id}=useLocalSearchParams();
-    const product=products.find((produto)=>produto.id==id)
+    const product=products.find((product)=>product.id==id)
+    if(product==null){
+        throw new Error("Product not found")
+    }
     return(
         <View style={styles.container}>
             <Text style={styles.textNameProduct}>{`${product?.name}`}</Text>
             <Text style={styles.textPriceProduct}>{`${product?.preco}R$`}</Text>
+            <TouchableOpacity style={styles.addButton} onPress={()=>{addToCart(product)
+                router.replace("/")
+            }}>
+                <FontAwesome5 size={25} name="plus"/> 
+            </TouchableOpacity>
         </View>
     );
 }
@@ -31,6 +48,10 @@ const styles=StyleSheet.create({
     },
     textPriceProduct:{
         fontSize: 27,
-        marginLeft: 150
-    }
+        marginLeft: 20
+    },
+    addButton:{
+        position: "absolute",
+        left: 340
+  },
 })
